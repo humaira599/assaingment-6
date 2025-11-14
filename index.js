@@ -42,8 +42,11 @@ const fetchData = async (url) => {
     try {
         const res = await fetch(url);
         const data = await res.json();
-        return data.data || data.plants || [];
-    }  catch (error)  {
+       if (url.includes(API_BASE+'plants/') && !url.includes('category/')){
+        return data;
+       }
+       return data.data || data.plants || [];
+    } catch (error) {
         console.error ("API Fetch Error:", error);
         return null;
     }
